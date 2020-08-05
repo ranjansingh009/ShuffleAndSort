@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Shuffle and Sort</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+		<style>
+			.card {
+				color: #fff;
+				height: 150px;
+				line-height: 150px;
+				font-size:20px;
+				font-weight:bold;
+			}
+			#card1{
+				background-color: #BFBFBF;
+			}
+			#card2{
+				background-color: #2B8EAD;
+			}
+			#card3{
+				background-color: #2F454E;
+			}
+			#card4{
+				background-color: #2B8EAD;
+			}
+			#card5{
+				background-color: #2F454E;
+			}
+			#card6{
+				background-color: #6F98A8;
+			}
+			#card7{
+				background-color: #6F98A8;
+			}
+			#card8{
+				background-color: #BFBFBF;
+			}
+			#card9{
+				background-color: #2F454E;
+			}
+			
+			.btn-container .btn{
+				margin-bottom:8px;
+			}
+			.mobileView{
+				display:none;
+			}
+			.desktopView{
+				display:block;
+			}
+			
+			@media (max-width:920px){
+				.mobileView{
+					display:block;
+				}
+				.desktopView{
+					display:none;
+				}
+				.card {
+					color: #000000;
+					margin-bottom:10px;
+					height: 50px;
+					line-height: 50px;
+					background-color: #6f98a821 !important;
+					border-left-width:10px;
+					border-left-style: solid;
+				}
+				#card1{
+					border-color: #BFBFBF;
+				}
+				#card2{
+					border-color: #2B8EAD;
+				}
+				#card3{
+					border-color: #2F454E;
+				}
+				#card4{
+					border-color: #2B8EAD;
+				}
+				#card5{
+					border-color: #2F454E;
+				}
+				#card6{
+					border-color: #6F98A8;
+				}
+				#card7{
+					border-color: #6F98A8;
+				}
+				#card8{
+					border-color: #BFBFBF;
+				}
+				#card9{
+					border-color: #2F454E;
+				}
+			}
+			
+		</style>
+  </head>
+  <body>
+    <div class="container">
+		<h4 class="text-center">Shuffle and Sort</h4>
+		
+			
+			<div class="col-md-2 col-sm-12 col-xs-12 btn-container mobileView">
+				<button class="btn btn-primary col-md-12 col-sm-5 col-xs-5 btn_shuffle pull-left" id="shuffle">Shuffle</button>
+				<button class="btn btn-primary col-md-12 col-sm-5 col-xs-5 btn_sort pull-right">Sort</button>
+			</div>
+			<div class="col-md-10 col-sm-12 col-xs-12">
+				<div class="row" id="grid"></div>
+			</div>
+			<div class="col-md-2 btn-container desktopView">
+				<button class="btn btn-primary col-md-12 btn_shuffle" id="shuffle">Shuffle</button>
+				<button class="btn btn-primary col-md-12 btn_sort">Sort</button>
+			</div>
+		
+	</div>
+	
+	
+  </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+ 
+	<script>
+		var grid = $('#grid');
+
+		for (var i = 1; i <= 9; i++) {
+		  grid.append('<div class="col-md-4 text-center card" id="card'+ i + '">' + i + '</div>');
+		}
+
+		$(".btn_shuffle").click(function() {
+		  var cardNumbers = [];
+		  
+		  $('.card').each(function() {
+			cardNumbers.push(this.innerHTML);
+		  });
+		  
+		  var theLength = cardNumbers.length - 1;
+		  var toSwap;
+		  var temp;
+		  
+		  for (var i = theLength; i > 0; i--) {
+			toSwap = Math.floor(Math.random() * (i + 1));
+			temp = cardNumbers[i];
+			cardNumbers[i] = cardNumbers[toSwap];
+			cardNumbers[toSwap] = temp;
+		  }
+		  
+		  i = 0;
+		  
+		  $('.card').each(function() {
+			this.innerHTML = cardNumbers[i];
+			i++;
+		  });
+		});
+
+		$(".btn_sort").click(function() {
+		  var cardNumbers = [];
+		  
+		  $('.card').each(function() {
+			cardNumbers.push(+this.innerHTML);
+		  });
+		  
+		  cardNumbers.sort();
+		  
+		  i = 0;
+		  
+		  $('.card').each(function() {
+			this.innerHTML = cardNumbers[i];
+			i++;
+		  });
+		});c
+	</script>
+ </body>
+</html>
